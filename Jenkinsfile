@@ -34,19 +34,13 @@ pipeline {
 
         stage('Test') {
             steps {
-                script {
-                    docker.image('flaskapp').inside {
-                        sh 'echo "No tests defined"' // Replace with actual test command
-                    }
-                }
+                sh 'docker run --rm flaskapp echo "No tests defined"'  // Replace with real tests if needed
             }
         }
 
         stage('Deploy') {
             steps {
-                script {
-                    docker.image('flaskapp').run('-d -p 5000:5000 --name flaskapp_container')
-                }
+                sh 'docker run -d -p 5000:5000 --name flaskapp_container flaskapp'
             }
         }
     }
